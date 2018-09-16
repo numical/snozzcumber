@@ -1,4 +1,6 @@
-const { MONTHLY } = require('../util/datetime.js');
+const freeze = require('deep-freeze');
+
+const { MONTHLY } = require('./datetime.js');
 
 const unitCount = 300; // 25 years
 
@@ -22,4 +24,4 @@ const model = {
   history: []
 };
 
-module.exports = Object.freeze(model);
+module.exports = freeze(model);

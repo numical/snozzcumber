@@ -2,7 +2,7 @@
 
 const tap = require('tap');
 const model = require('./defaultModel.js');
-const { MONTHLY } = require('../util/datetime.js');
+const { MONTHLY } = require('./datetime.js');
 
 tap.ok(model.metadata, 'default model has metadata');
 
@@ -21,5 +21,8 @@ tap.ok(model.values[0].every(val => val === 0), 'all values are zero');
 tap.ok(model.history, 'default model has history');
 tap.equals(model.history.length, 0, 'empty hitory');
 
-const fn = () => { model.newProp = {}; };
+let fn = () => { model.newProp = {}; };
 tap.throws(fn, Error, 'model is immutable'); // note: requires strict mode
+
+fn = () => { model.dates.epoch = 'teapot'; };
+tap.throws(fn, Error, 'model elements are immutable'); // note: requires strict mode
