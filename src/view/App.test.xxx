@@ -1,0 +1,14 @@
+import tap from 'tap';
+import React from 'react';
+import { configure, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import App from './App.js';
+import RawModel from './RawModel.js';
+
+configure({ adapter: new Adapter() });
+global.self = {navigator: {userAgent: ''}};
+
+const wrapper = shallow(<App />);
+tap.equals(wrapper.contains(<div>Snozzcumber</div>), true, 'Displays Snozzcumber title');
+const found = wrapper.find(RawModel);
+tap.equals(found.length, 1, 'Displays a single RawModel component');

@@ -2,20 +2,21 @@
 
 const tap = require('tap');
 const model = require('./defaultModel.js');
-const { MONTHLY } = require('./datetime.js');
+const { MONTH } = require('./datetime.js');
 
 tap.ok(model.metadata, 'default model has metadata');
 
 tap.ok(model.dates, 'default model has dates metadata');
-tap.equal(model.dates.unitType, MONTHLY, 'monthly interval default');
-tap.equal(model.dates.unitCount, 300, '25 year default');
+tap.ok(MONTH, 'default model date interval type defined');
+tap.equal(model.dates.intervalType, MONTH, 'month interval default');
+tap.equal(model.dates.intervalCount, 300, '25 year default');
 
 tap.ok(model.rows, 'default model has rows metadata');
 tap.equals(Object.keys(model.rows).length, 1, 'rows metadata for a single row');
 
 tap.ok(model.values, 'default model has values');
 tap.equals(model.values.length, 1, 'values for a single row');
-tap.equals(model.values[0].length, 300, '25 years of values for this row');
+tap.equals(model.values[0].length, 301, '25 years of values for this row');
 tap.ok(model.values[0].every(val => val === 0), 'all values are zero');
 
 tap.ok(model.history, 'default model has history');

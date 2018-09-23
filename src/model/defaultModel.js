@@ -1,8 +1,8 @@
+
 const freeze = require('deep-freeze');
+const { MONTH } = require('./datetime.js');
 
-const { MONTHLY } = require('./datetime.js');
-
-const unitCount = 300; // 25 years
+const intervalCount = 300; // 25 years
 
 const model = {
   metadata: {
@@ -10,16 +10,17 @@ const model = {
   },
   dates: {
     epoch: new Date(1970, 0, 1),
-    unitType: MONTHLY,
-    unitCount
+    intervalType: MONTH,
+    intervalCount
   },
   rows: [
     {
-      display: 'Cash Balance'
+      key: 'cashBalance',
+      description: 'Cash Balance'
     }
   ],
   values: [
-    new Array(unitCount).fill(0)
+    new Array(intervalCount + 1).fill(0)
   ],
   history: []
 };

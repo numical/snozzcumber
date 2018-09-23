@@ -7,9 +7,10 @@
     "lint": "semistandard",
     "lint:fix": "semistandard --fix",
     "start": "parcel ./src/index.html",
-    "test:model": "tap src/model/**/*.test.js --100",
-    "test:view": "rimraf dist-test && babel src/view -d dist-test && tap dist-test/**/*.test.js --lines 100 --functions 100",
-    "test": "npm run test:model && npm run test:view"
+    "test": "tap",
+    "test:model": "tap src/model/**/*.test.js",
+    "test:view": "rimraf dist-test && babel src -d dist-test && tap dist-test/**/*.test.js ",
+    "test:all": "npm run test:model -- --100  && npm run test:view -- --lines 100 --functions 100"
   },
   "repository": {
     "type": "git",
@@ -47,6 +48,7 @@
     "react-data-grid": "^4.0.8",
     "react-datepicker": "^1.6.0",
     "react-dom": "^16.5.1",
+    "react-json-view": "^1.19.1",
     "react-tabs": "^2.3.0"
   }
 }
