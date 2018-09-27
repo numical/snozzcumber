@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import SplitPane from 'react-split-pane';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-
-import { createExampleModel } from '../model/factory.js';
+import Chart from './Chart.js';
+import Grid from './Grid.js';
 import RawModel from './RawModel.js';
-import TableModel from './TableModel.js';
+import { getViewportDimensions } from './DOM.js';
+import { createExampleModel } from '../model/factory.js';
 
 class App extends Component {
   constructor (props) {
@@ -17,24 +19,28 @@ class App extends Component {
   render () {
     const { state } = this;
     const { model } = state;
+    const { height } = getViewportDimensions();
+    const splitPaneProps = {
+      defaultSize: height * 0.7,
+      split: 'horizontal'
+    };
+
     return (
-      <div>
-        <div>
-          Snozzcumber
-        </div>
+      <SplitPane {...splitPaneProps}>
+        <Chart model={model} />
         <Tabs>
           <TabList>
             <Tab>Grid</Tab>
             <Tab>Raw</Tab>
           </TabList>
           <TabPanel>
-            <TableModel model={model} />
+            <Grid model={model} />
           </TabPanel>
           <TabPanel>
             <RawModel model={model} />
           </TabPanel>
         </Tabs>
-      </div>
+      </SplitPane>
     );
   }
 }

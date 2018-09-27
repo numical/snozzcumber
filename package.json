@@ -49,6 +49,8 @@
     "react-datepicker": "^1.6.0",
     "react-dom": "^16.5.1",
     "react-json-view": "^1.19.1",
-    "react-tabs": "^2.3.0"
+    "react-split-pane": "^0.1.84",
+    "react-tabs": "^2.3.0",
+    "react-vis": "^1.11.2"
   }
 }

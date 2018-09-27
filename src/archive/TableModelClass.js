@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDataGrid from 'react-data-grid';
 import generateGrid from '../model/generateGrid.js';
 
@@ -37,14 +37,24 @@ const generateGridProps = (model) => {
   };
 };
 
-const TableModel = (props) => {
-  const { model } = props;
-  const gridProps = generateGridProps(model);
-  return (
-    <div>
-      <ReactDataGrid {...gridProps} />
-    </div>
-  );
-};
+class TableModel extends Component {
+  constructor (props) {
+    super(props);
+    const { model } = props;
+    this.state = {
+      model,
+      gridProps: generateGridProps(model)
+    };
+  }
+
+  render () {
+    const { gridProps } = this.state;
+    return (
+      <div>
+        <ReactDataGrid {...gridProps} />
+      </div>
+    );
+  }
+}
 
 export default TableModel;
