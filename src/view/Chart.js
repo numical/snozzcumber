@@ -7,21 +7,20 @@ import {
   YAxis,
   LineMarkSeries
 } from 'react-vis';
-import { getViewportDimensions } from './DOM.js';
 import { calculateDate } from '../model/datetime.js';
 import '../../node_modules/react-vis/dist/style.css';
 
 const Chart = (props) => {
-  const { model } = props;
+  const { dimensions, model } = props;
+  const { height, width } = dimensions;
   const { dates, values } = model;
   const { epoch, intervalType } = dates;
 
   const calcDate = calculateDate.bind(null, epoch, intervalType);
 
-  const { width, height } = getViewportDimensions();
   const xyPlotProps = {
-    width: width * 0.95,
-    height: height * 0.7
+    height,
+    width
   };
 
   const yDomain = [0, Math.max.apply(null, values[0]) * 1.2];
