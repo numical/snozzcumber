@@ -39,15 +39,18 @@
   "dependencies": {
     "deep-diff": "^1.0.2",
     "deep-freeze": "0.0.1",
-    "informed": "^1.10.4",
+    "final-form": "^4.10.0",
+    "informed": "^1.10.5",
     "proptypes": "^1.1.0",
     "ramda": "^0.25.0",
-    "react": "^16.5.1",
+    "react": "^16.5.2",
     "react-data-grid": "^4.0.8",
     "react-dom": "^16.5.1",
+    "react-final-form": "^3.6.5",
     "react-json-view": "^1.19.1",
     "react-split-pane": "^0.1.84",
     "react-tabs": "^2.3.0",
-    "react-vis": "^1.11.2"
+    "react-vis": "^1.11.2",
+    "regenerator-runtime": "^0.12.1"
   }
 }

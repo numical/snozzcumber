@@ -7,16 +7,15 @@ import {
   YAxis,
   LineMarkSeries
 } from 'react-vis';
-import { calculateDate } from '../model/datetime.js';
 import '../../node_modules/react-vis/dist/style.css';
 
 const Chart = (props) => {
   const { dimensions, model } = props;
   const { height, width } = dimensions;
   const { dates, values } = model;
-  const { epoch, intervalType } = dates;
+  const { epoch, interval } = dates;
 
-  const calcDate = calculateDate.bind(null, epoch, intervalType);
+  const calcDate = interval.calculateDate.bind(null, epoch);
 
   const xyPlotProps = {
     height,

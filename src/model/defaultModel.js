@@ -1,8 +1,8 @@
 
 const freeze = require('deep-freeze');
-const { MONTH } = require('./datetime.js');
+const { MONTH } = require('./interval.js');
 
-const intervalCount = 300; // 25 years
+const intervalCount = 25 * MONTH.intervalsPerAnnum;
 
 const model = {
   metadata: {
@@ -10,7 +10,7 @@ const model = {
   },
   dates: {
     epoch: new Date(1970, 0, 1),
-    intervalType: MONTH,
+    interval: MONTH,
     intervalCount
   },
   rows: [

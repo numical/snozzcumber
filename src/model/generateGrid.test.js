@@ -2,11 +2,10 @@
 const tap = require('tap');
 require('tapdate')();
 const model = require('./exampleModel.js');
-const { calculateDate } = require('./datetime.js');
 const generateGrid = require('./generateGrid.js');
 
 const { dates } = model;
-const { epoch, intervalType, intervalCount } = dates;
+const { epoch, interval, intervalCount } = dates;
 
 const numCols = intervalCount + 2;
 const grid = generateGrid(model);
@@ -18,7 +17,7 @@ grid.map((row, index) => {
 const firstRow = grid[0];
 tap.equal(firstRow[0], 'Date', 'first row is labelled Date');
 tap.dateSame(firstRow[1], model.dates.epoch, 'first row first value is epoch');
-const endDate = calculateDate(epoch, intervalType, intervalCount);
+const endDate = interval.calculateDate(epoch, intervalCount);
 tap.dateSame(firstRow[intervalCount + 1], endDate, 'first row last value is end date');
 
 const secondRow = grid[1];
