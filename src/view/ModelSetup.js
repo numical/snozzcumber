@@ -55,7 +55,9 @@ class ModelSetup extends Component {
   render () {
     const { state } = this;
     const { startDate, years } = state;
-    const intervalOptions = this.renderIntervalOptions();
+    const buttonProps = {
+      onClick: () => alert('Clicked')
+    };
     return (
       <div>
         <div>
@@ -68,8 +70,9 @@ class ModelSetup extends Component {
         </div>
         <div>
           <label htmlFor='interval'>Calculate every</label>
-          {intervalOptions}
+          {this.renderIntervalOptions()}
         </div>
+        <button {...buttonProps}>Generate Model</button>
       </div>
     );
   }
