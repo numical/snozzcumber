@@ -5,9 +5,6 @@ const model = require('./defaultModel.js');
 const { MONTH } = require('./interval.js');
 const { equalPreviousValue } = require('./calcFns.js');
 
-console.log('equalPreviousValue:', equalPreviousValue);
-console.log('name:', equalPreviousValue.name);
-
 tap.ok(model.metadata, 'default model has metadata');
 tap.ok(model.dates, 'default model has dates metadata');
 tap.ok(MONTH, 'default model date interval type defined');

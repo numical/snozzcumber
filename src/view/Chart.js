@@ -7,22 +7,24 @@ import {
   YAxis,
   LineMarkSeries
 } from 'react-vis';
+import calculateDateValues from '../model/calculateDateValues.js';
+import calculateRowValues from '../model/calculateRowValues.js';
 import '../../node_modules/react-vis/dist/style.css';
 
 const Chart = (props) => {
   const { dimensions, model } = props;
   const { height, width } = dimensions;
-  const { dates, values } = model;
-  const { epoch, interval } = dates;
+  const { rows } = model;
 
-  const calcDate = interval.calculateDate.bind(null, epoch);
+  const xValues = calculateDateValues(model);
+  const yValues = calculateRowValues(model, rows[0]);
 
   const xyPlotProps = {
     height,
     width
   };
 
-  const yDomain = [0, Math.max.apply(null, values[0]) * 1.2];
+  const yDomain = [0, Math.max.apply(null, yValues) * 1.2];
   const yAxisProps = {
     tickFormat: (value) => `£${value / 1000}k`,
     yDomain
@@ -31,7 +33,7 @@ const Chart = (props) => {
     xType: 'time'
   };
   const seriesProps = {
-    data: values[0].map((value, index) => ({x: calcDate(index), y: value})),
+    data: yValues.map((value, index) => ({x: xValues[index], y: value})),
     xType: 'time',
     yDomain
   };
