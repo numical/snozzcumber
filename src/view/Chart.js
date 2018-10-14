@@ -16,15 +16,20 @@ const Chart = (props) => {
   const { height, width } = dimensions;
   const { rows } = model;
 
-  const xValues = calculateDateValues(model);
-  const yValues = calculateRowValues(model, rows[0]);
-
   const xyPlotProps = {
     height,
     width
   };
 
-  const yDomain = [0, Math.max.apply(null, yValues) * 1.2];
+  const xValues = calculateDateValues(model);
+  const yValues = rows.map(calculateRowValues.bind(null, model));
+
+  const maxYValue = yValues.reduce((max, rowValues) => {
+    const rowMax = Math.max.apply(null, rowValues);
+    return (rowMax > max) ? rowMax : max;
+  }, 0);
+
+  const yDomain = [0, maxYValue * 1.2];
   const yAxisProps = {
     tickFormat: (value) => `£${value / 1000}k`,
     yDomain
@@ -32,11 +37,13 @@ const Chart = (props) => {
   const xAxisProps = {
     xType: 'time'
   };
-  const seriesProps = {
-    data: yValues.map((value, index) => ({x: xValues[index], y: value})),
+
+  const seriesProps = yValues.map((seriesValues) => ({
+    data: seriesValues.map((value, index) => ({x: xValues[index], y: value})),
     xType: 'time',
     yDomain
-  };
+  }));
+  const lines = seriesProps.map((lineProps) => (<LineMarkSeries {...lineProps} />));
 
   return (
     <XYPlot {...xyPlotProps}>
@@ -44,7 +51,7 @@ const Chart = (props) => {
       <YAxis {...yAxisProps} />
       <HorizontalGridLines />
       <VerticalGridLines />
-      <LineMarkSeries {...seriesProps} />
+      {lines}
     </XYPlot>
   );
 };

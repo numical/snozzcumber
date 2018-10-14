@@ -1,6 +1,5 @@
 const freeze = require('deep-freeze');
 const { MONTH } = require('./interval.js');
-const { equalPreviousValue } = require('./calcFns.js');
 
 const intervalCount = 25 * MONTH.intervalsPerAnnum;
 
@@ -17,7 +16,7 @@ const model = {
     {
       key: 'cashBalance',
       description: 'Cash Balance',
-      values: [0, equalPreviousValue.name]
+      values: [0]
     }
   ],
   history: []

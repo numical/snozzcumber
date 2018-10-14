@@ -3,7 +3,6 @@
 const tap = require('tap');
 const model = require('./defaultModel.js');
 const { MONTH } = require('./interval.js');
-const { equalPreviousValue } = require('./calcFns.js');
 
 tap.ok(model.metadata, 'default model has metadata');
 tap.ok(model.dates, 'default model has dates metadata');
@@ -16,9 +15,8 @@ tap.equals(Object.keys(model.rows).length, 1, 'rows metadata for a single row');
 
 const { values } = model.rows[0];
 tap.ok(values, 'default model first row has values');
-tap.equals(values.length, 2, 'two values for first row');
+tap.equals(values.length, 1, 'one value for first row');
 tap.equals(values[0], 0, 'initial value of first row is zero');
-tap.equals(values[1], equalPreviousValue.name, `second value is function '${equalPreviousValue.name}}`);
 
 tap.ok(model.history, 'default model has history');
 tap.equals(model.history.length, 0, 'empty hitory');
