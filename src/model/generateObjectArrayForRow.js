@@ -1,12 +1,10 @@
-const generateObjectArrayForRow = (model, row) => {
-  const { key } = row;
-  const { rows, values } = model;
-  const rowIndex = rows.indexOf(row);
-  return values[rowIndex].map((value) => {
-    const obj = {};
-    obj[key] = value;
-    return obj;
-  });
+const calculateRowValues = require('./calculateRowValues.js');
+
+const generateObjectArrayForRow = (model, modelRow) => {
+  const { key } = modelRow;
+  return calculateRowValues(model, modelRow).map(value => ({
+    [key]: value
+  }));
 };
 
 module.exports = generateObjectArrayForRow;

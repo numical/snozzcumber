@@ -1,15 +1,26 @@
+const calculateDateValues = require('./calculateDateValues.js');
+const calculateRowValues = require('./calculateRowValues.js');
+
+const generateDateRow = (model) => {
+  const row = calculateDateValues(model);
+  row.unshift('Date');
+  return row;
+};
+
+const generateGridRow = (model, modelRow) => {
+  const { description } = modelRow;
+  const row = calculateRowValues(model, modelRow);
+  row.unshift(description);
+  return row;
+};
+
 const generateGrid = (model) => {
-  const { dates, rows, values } = model;
-  const { epoch, interval } = dates;
-
-  // add row description as first value
-  const prefixedValues = values.map((value, index) => [rows[index].description, ...value]);
-
-  // first row is dates
-  const calc = interval.calculateDate.bind(null, epoch);
-  const firstRow = ['Date', ...values[0].map((value, index) => calc(index))];
-
-  return [firstRow, ...prefixedValues];
+  const { rows } = model;
+  const generateRow = generateGridRow.bind(null, model);
+  return [
+    generateDateRow(model),
+    ...rows.map(generateRow)
+  ];
 };
 
 module.exports = generateGrid;
