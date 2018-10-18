@@ -1,9 +1,10 @@
 'use strict';
 const tap = require('tap');
 require('tapdate')();
-const model = require('./exampleModel.js');
 const generateGrid = require('./generateGrid.js');
+const { createExampleModel } = require('./factory.js');
 
+const model = createExampleModel();
 const { dates } = model;
 const { intervalCount } = dates;
 

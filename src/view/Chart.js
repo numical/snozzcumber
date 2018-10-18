@@ -7,8 +7,6 @@ import {
   YAxis,
   LineMarkSeries
 } from 'react-vis';
-import calculateDateValues from '../model/calculateDateValues.js';
-import calculateRowValues from '../model/calculateRowValues.js';
 import '../../node_modules/react-vis/dist/style.css';
 
 const Chart = (props) => {
@@ -21,8 +19,8 @@ const Chart = (props) => {
     width
   };
 
-  const xValues = calculateDateValues(model);
-  const yValues = rows.map(calculateRowValues.bind(null, model));
+  const xValues = model.calculateDateValues();
+  const yValues = rows.map(model.calculateRowValues);
 
   const maxYValue = yValues.reduce((max, rowValues) => {
     const rowMax = Math.max.apply(null, rowValues);
@@ -38,8 +36,9 @@ const Chart = (props) => {
     xType: 'time'
   };
 
-  const seriesProps = yValues.map((seriesValues) => ({
+  const seriesProps = yValues.map((seriesValues, index) => ({
     data: seriesValues.map((value, index) => ({x: xValues[index], y: value})),
+    key: index, // index consistent so can be used as key
     xType: 'time',
     yDomain
   }));

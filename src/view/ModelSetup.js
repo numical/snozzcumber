@@ -1,5 +1,7 @@
+/* global alert */
+
 import React, { Component } from 'react';
-import intervals from '../model/interval.js';
+import { availableIntervalsPerAnnum, display } from '../model/interval.js';
 
 const methods = ['renderIntervalOptions', 'updateLocalModel'];
 
@@ -13,11 +15,11 @@ class ModelSetup extends Component {
   createInitialState (props) {
     const { model } = props;
     const { dates } = model;
-    const { epoch, interval, intervalCount } = dates;
+    const { epoch, intervalsPerAnnum, intervalCount } = dates;
     const startDate = epoch.toISOString().substring(0, 10);
-    const years = intervalCount / interval.intervalsPerAnnum;
+    const years = intervalCount / intervalsPerAnnum;
     return {
-      interval,
+      intervalsPerAnnum,
       startDate,
       years
     };
@@ -32,21 +34,20 @@ class ModelSetup extends Component {
 
   renderIntervalOptions () {
     const { state } = this;
-    const { interval } = state;
-    return Object.values(intervals).map((intervalOption) => {
-      const { display } = intervalOption;
+    const { intervalsPerAnnum } = state;
+    return availableIntervalsPerAnnum.map((intervalsPerAnnumOption) => {
       const inputProps = {
-        checked: (display === interval.display),
-        id: display,
-        name: 'interval',
-        onChange: this.updateLocalModel.bind(null, 'interval', intervalOption),
+        checked: (intervalsPerAnnum === intervalsPerAnnumOption),
+        id: intervalsPerAnnumOption,
+        name: 'intervalsPerAnnum',
+        onChange: this.updateLocalModel.bind(null, 'intervalsPerAnnum', intervalsPerAnnumOption),
         type: 'radio',
-        value: interval
+        value: intervalsPerAnnumOption
       };
       return (
-        <span key={display}>
+        <span key={intervalsPerAnnumOption}>
           <input {...inputProps} />
-          <label htmlFor={display}>{display}</label>
+          <label htmlFor={intervalsPerAnnumOption}>{display(intervalsPerAnnumOption)}</label>
         </span>
       );
     });
@@ -69,7 +70,7 @@ class ModelSetup extends Component {
           <input type='number' value={years} onChange={this.updateLocalModel.bind(null, 'years')} />
         </div>
         <div>
-          <label htmlFor='interval'>Calculate every</label>
+          <label htmlFor='intervalsPerAnnum'>Calculate every</label>
           {this.renderIntervalOptions()}
         </div>
         <button {...buttonProps}>Generate Model</button>

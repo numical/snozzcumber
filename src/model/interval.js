@@ -1,26 +1,39 @@
-const FOUR_WEEKS = Object.freeze({
-  calculateDate: (epoch, intervalsSince) =>
-    new Date(epoch.getTime() + (intervalsSince * 4 * 7 * 24 * 60 * 60 * 1000)),
-  display: 'four weeks',
-  intervalsPerAnnum: 13
-});
+const unhandledInterval = (intervalsPerAnnum) => {
+  throw new Error(`Unhandled intervals per annum: ${intervalsPerAnnum}`);
+};
 
-const MONTH = Object.freeze({
-  calculateDate: (epoch, intervalsSince) =>
-    new Date(
-      epoch.getFullYear(),
-      epoch.getMonth() + intervalsSince,
-      epoch.getDate(),
-      epoch.getHours(),
-      epoch.getMinutes(),
-      epoch.getSeconds(),
-      epoch.getMilliseconds()
-    ),
-  display: 'month',
-  intervalsPerAnnum: 12
-});
+const calculateDate = (intervalsPerAnnum, epoch, intervalsSince) => {
+  switch (intervalsPerAnnum) {
+    case 12:
+      return new Date(
+        epoch.getFullYear(),
+        epoch.getMonth() + intervalsSince,
+        epoch.getDate(),
+        epoch.getHours(),
+        epoch.getMinutes(),
+        epoch.getSeconds(),
+        epoch.getMilliseconds()
+      );
+    case 13:
+      return new Date(epoch.getTime() + (intervalsSince * 4 * 7 * 24 * 60 * 60 * 1000));
+    default:
+      unhandledInterval(intervalsPerAnnum);
+  }
+};
+
+const display = (intervalsPerAnnum) => {
+  switch (intervalsPerAnnum) {
+    case 12:
+      return 'month';
+    case 13:
+      return 'four weeks';
+    default:
+      unhandledInterval(intervalsPerAnnum);
+  }
+};
 
 module.exports = {
-  FOUR_WEEKS,
-  MONTH
+  availableIntervalsPerAnnum: [12, 13],
+  calculateDate,
+  display
 };

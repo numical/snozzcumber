@@ -1,7 +1,7 @@
-const freeze = require('deep-freeze');
-const { MONTH } = require('./interval.js');
+const deepFreeze = require('./deepFreeze.js');
 
-const intervalCount = 25 * MONTH.intervalsPerAnnum;
+const intervalsPerAnnum = 12;
+const intervalCount = 25 * intervalsPerAnnum;
 
 const model = {
   metadata: {
@@ -9,7 +9,7 @@ const model = {
   },
   dates: {
     epoch: new Date(1970, 0, 1),
-    interval: MONTH,
+    intervalsPerAnnum,
     intervalCount
   },
   rows: [
@@ -22,4 +22,4 @@ const model = {
   history: []
 };
 
-module.exports = freeze(model);
+module.exports = deepFreeze(model);

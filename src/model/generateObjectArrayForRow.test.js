@@ -1,7 +1,9 @@
 'use strict';
 const tap = require('tap');
-const model = require('./exampleModel.js');
+const { createExampleModel } = require('./factory.js');
 const generateObjectArrayForRow = require('./generateObjectArrayForRow.js');
+
+const model = createExampleModel();
 const { dates, rows } = model;
 const { intervalCount } = dates;
 const firstRow = rows[0];

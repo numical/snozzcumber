@@ -1,6 +1,6 @@
-const defaultModel = require('./defaultModel.js');
-const freeze = require('deep-freeze');
 const { clone } = require('ramda');
+const defaultModel = require('./defaultModel.js');
+const deepFreeze = require('./deepFreeze.js');
 
 const model = clone(defaultModel);
 model.dates.epoch = new Date(2016, 0, 1);
@@ -13,4 +13,4 @@ model.rows[1] = {
   values: [5000]
 };
 
-module.exports = freeze(model);
+module.exports = deepFreeze(model);

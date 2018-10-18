@@ -2,12 +2,10 @@
 
 const tap = require('tap');
 const model = require('./defaultModel.js');
-const { MONTH } = require('./interval.js');
 
 tap.ok(model.metadata, 'default model has metadata');
 tap.ok(model.dates, 'default model has dates metadata');
-tap.ok(MONTH, 'default model date interval type defined');
-tap.equal(model.dates.interval, MONTH, 'month interval default');
+tap.equal(model.dates.intervalsPerAnnum, 12, 'month interval default');
 tap.equal(model.dates.intervalCount, 300, '25 year default');
 
 tap.ok(model.rows, 'default model has rows metadata');
